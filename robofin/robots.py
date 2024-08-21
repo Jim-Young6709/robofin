@@ -22,11 +22,10 @@ class FrankaRobot:
     VELOCITY_LIMIT = np.array([2.1750, 2.1750, 2.1750, 2.1750, 2.6100, 2.6100, 2.6100])
     ACCELERATION_LIMIT = np.array([15.0, 7.5, 10.0, 12.5, 15.0, 20.0, 20.0])
     DOF = 7
-    EFF_LIST = set(["panda_link8", "right_gripper", "panda_grasptarget"])
+    EFF_LIST = set(["panda_link8", "right_gripper", "panda_grasptarget", "panda_hand"])
     EFF_T_LIST = {
         ("panda_link8", "panda_hand"): SE3(
-            xyz=[0, 0, 0],
-            quaternion=[0.9238795325113726, 0.0, 0.0, -0.3826834323648827],
+            xyz=[0, 0, 0], rpy=[0, 0, 2.35619449019]
         ),
         ("panda_link8", "right_gripper"): SE3(
             xyz=[0, 0, 0.1], rpy=[0, 0, 2.35619449019]
@@ -212,6 +211,11 @@ class FrankaRobot:
             return (
                 SE3(matrix=mat)
                 @ FrankaRobot.EFF_T_LIST[("panda_link8", "right_gripper")]
+            )
+        elif eff_frame == "panda_hand":
+            return (
+                SE3(matrix=mat)
+                @ FrankaRobot.EFF_T_LIST[("panda_link8", "panda_hand")]
             )
         else:
             return (

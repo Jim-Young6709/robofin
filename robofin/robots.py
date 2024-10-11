@@ -239,6 +239,10 @@ class FrankaRobot:
             pose = (
                 pose @ FrankaRobot.EFF_T_LIST[("panda_link8", "right_gripper")].inverse
             )
+        elif eff_frame == "panda_hand":
+            pose = (
+                pose @ FrankaRobot.EFF_T_LIST[("panda_link8", "panda_hand")].inverse
+            )
         elif eff_frame == "panda_grasptarget":
             pose = (
                 pose
